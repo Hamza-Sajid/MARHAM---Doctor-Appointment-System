@@ -16,6 +16,22 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'password is required']
     },
+    isAdmin: {
+        type: Boolean,
+        default: false
+    },
+    isDoctor: {
+        type: Boolean,
+        default: true
+    },
+    notification: {
+        type: Array,
+        default: []
+    },
+    seenNotification: {
+        type: Array,
+        default: []
+    }
     // confirm_password: {
     //     type: String,
     //     required: [true, 'confirm_password is required']

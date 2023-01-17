@@ -1,4 +1,5 @@
 import Express from "express";
+import applyDoc from "../Controllers/ApplyDoc.js";
 import { login, register, checkToken } from "../Controllers/UserCon.js";
 import authMiddleware from "../Middlewares/AuthMiddleware.js";
 const router = Express.Router();
@@ -19,4 +20,8 @@ router.post("/register", register)
 
 router.post("/dashboard", authMiddleware, checkToken)
 
+
+//Apply as a doctor
+
+router.post("/applydoc", authMiddleware, applyDoc);
 export default router;
