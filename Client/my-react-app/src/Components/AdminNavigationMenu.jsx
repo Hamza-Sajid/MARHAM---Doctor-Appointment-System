@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function AdminNavigationMenu() {
+  const navigate = useNavigate();
   return (
     <div>
       <div className=" flex items-center justify-center bg-white py-6">
@@ -37,7 +39,7 @@ function AdminNavigationMenu() {
             </li>
             <li className="my-px">
               <a
-                href="#"
+                onClick={() => navigate("/admin/doctors")}
                 className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
               >
                 <span className="flex items-center justify-center text-lg text-gray-400">
@@ -79,7 +81,7 @@ function AdminNavigationMenu() {
             </li>
             <li className="my-px">
               <a
-                href="#"
+                onClick={() => navigate("/admin/users")}
                 className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100"
               >
                 <span className="flex items-center justify-center text-lg text-gray-400">

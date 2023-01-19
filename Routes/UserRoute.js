@@ -3,13 +3,11 @@ import applyDoc from "../Controllers/ApplyDoc.js";
 import NotificationRoute from "../Controllers/NotificationRoute.js";
 import { login, register, checkToken } from "../Controllers/UserCon.js";
 import authMiddleware from "../Middlewares/AuthMiddleware.js";
+import AdminRoutes from "./AdminRoutes.js";
 const router = Express.Router();
 
 //Login
 
-// router.get((req, res) => {
-//     res.send("welcome")
-// })
 router.post("/login", login);
 
 

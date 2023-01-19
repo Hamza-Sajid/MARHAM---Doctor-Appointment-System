@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { IoLogOut, IoNotificationsOutline } from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Avatar, Badge, Button, notification } from "antd";
+import { Avatar, Badge, Button, notification, message } from "antd";
 import { AiFillBell } from "react-icons/ai";
 import axios from "axios";
 
 function Header() {
+  const [messageApi, contextHolder2] = message.useMessage();
+
   const [api, contextHolder] = notification.useNotification();
 
   const [profileToolTip, setProfileToolTip] = useState(false);
@@ -16,7 +18,7 @@ function Header() {
   const navigate = useNavigate();
   const users = useSelector((state) => state.user);
   //   console.log(user.user.name);
-  //   const [user, setUser] = useState();
+  // const [notificationNo, setNotificationNo] = useState(0);
   let name = "loading";
   var notificationNo = 0;
   var notificationTexts;
@@ -32,9 +34,18 @@ function Header() {
     localStorage.removeItem("token");
     navigate("/login");
   };
-  console.log(notificationTexts);
 
   const clearNotification = (index) => {
+    // success();
+    const success = () => {
+      console.log("i am oing to run");
+      messageApi.open({
+        type: "success",
+        content: "This notification is marked read , refresh to see update ",
+      });
+    };
+    success();
+
     var index2 = index;
     const options = {
       url: "http://localhost:3000/notifications",
@@ -50,8 +61,13 @@ function Header() {
       console.log(response);
     });
   };
+
+  useEffect(() => {}, [users]);
+
   return (
     <div className="flex flex-row w-full">
+      {contextHolder2}
+
       <div className=" w-3/4"></div>
       <div className="flex justify-between  w-1/6 ml-16 mt-2">
         {contextHolder}

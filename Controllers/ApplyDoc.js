@@ -29,7 +29,7 @@ const applyDoc = async (req, res, next) => {
         const notification = user.notification;
         notification.push({
             type: "Request for doctor registration",
-            message: "  New doctor applied for doc registration"
+            message: "  New doctor " + user.name + " applied for doc registration"
         })
         await userModel.findOneAndUpdate({ notification: notification })
         res.status(200).json({ message: "applied succesfully" })
