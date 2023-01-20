@@ -3,6 +3,7 @@ import userModel from "../../Models/userMode.js";
 
 const updateStatus = async (req, res, next) => {
 
+    //here record means id
     const { record, status } = req.body;
     if (status == "pending") {
         const statusUpdate = await doctorModal.findByIdAndUpdate(record, { status: "Approved" });

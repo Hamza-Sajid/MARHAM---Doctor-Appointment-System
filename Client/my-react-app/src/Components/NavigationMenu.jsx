@@ -1,8 +1,43 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function NavigationMenu() {
+  const [userStatus, SetUserStaus] = useState();
+
+  const CheckDocStatus = async () => {
+    const user = useSelector((state) => state.user);
+
+    const id = user.user._id;
+
+    axios
+      .post(
+        "http://localhost:3000/admin/updatestatus",
+        {},
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+
+          data: { id },
+        }
+      )
+      .then(function (response) {
+        SetUserStaus(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {}, [0]);
+
   const navigate = useNavigate();
+
+  CheckDocStatus();
+
+  console.log(userStatus);
   return (
     <div>
       <div className=" flex items-center justify-center bg-white py-6">
@@ -58,7 +93,16 @@ function NavigationMenu() {
                 <span className="ml-3">Appointments</span>
               </a>
             </li>
-            <li className="my-px" onClick={(e) => navigate("/applydoc")}>
+            <li
+              className="my-px"
+              onClick={(e) => {
+                if (userStatus == "user updated") {
+                  navigate("/CheckRegistration");
+                } else {
+                  navigate("/applydoc");
+                }
+              }}
+            >
               <a className="flex flex-row items-center h-12 px-4 rounded-lg text-gray-600 hover:bg-gray-100">
                 <span className="flex items-center justify-center text-lg text-gray-400">
                   <svg
@@ -73,7 +117,11 @@ function NavigationMenu() {
                     <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                   </svg>
                 </span>
-                <span className="ml-3">Apply Doctor</span>
+                <span className="ml-3">
+                  {userStatus == "user updated"
+                    ? "Registration"
+                    : "Apply Doctor"}
+                </span>
               </a>
             </li>
             <li className="my-px">
